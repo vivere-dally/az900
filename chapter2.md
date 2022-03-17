@@ -105,3 +105,58 @@ This type of access is recommended for long-term data storage. If you delete dat
 ## Azure Cosmos DB
 
 <img src="https://gotcosmos.com/images/about/cosmos-logo.svg?v=TV8GAN6U90A78jwat9z4a3cLY6dIphJm8XyfL_NkOjw" alt="Azure Cosmos DB" width="50">
+
+Azure Cosmos DB is a multi-model globally distributed database service.
+
+|      System      |      Description                                                                                                                                                                                                                       |      Common    Use                                                                                                                                                                                                                                                 |
+|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|     Key-value    |     Stores data that is tied to a   unique key. Pass in the key and the database returns the data.                                                                                                                                     |     Because the value can be just   about anything, key-value databases have many uses.                                                                                                                                                                            |
+|     Column       |     NoSQL databases are called keyspaces,   and a keyspace contains column families. A column contains rows and columns   like a relational table, but each row can have its own set of columns. You   aren’t locked into a schema.    |     Storing user-profile data for a   website. Also, because column databases scale well and are extremely fast,   they are well-suited to storing large amounts of data.                                                                                          |
+|     Document     |     Data is stored as a structured   string of text called a document. This can be HTML, JSON, and so forth. This   is similar to a key-value database, except that the document is a structured   value.                              |     Same as key-value, but document   databases have advantages. They scale well horizontally, and they allow you   to query against the value and return portions of the value. A key-value   database query returns the entire value associated with the key.    |
+|     Graph        |     Stores data and the relationships   between each piece of data. Data is stored in nodes, and relationships are   drawn between nodes.                                                                                              |     Many systems use graph databases   because they are extremely fast. A social network might use a graph database   because it would be easy to store relationships between people, things those   people like, and so forth.                                    |
+
+When you create a Cosmos DB database, you choose the API you want to use, which determines the database type for your database. The database API types are:
+
+- **Core (SQL)** Creates a document database that you can query using SQL syntax that you might be familiar with from using relational databases.
+- **Azure Cosmos DB for MongoDB API** Used for migrating a MongoDB database to Cosmos DB. MongoDB databases are document databases.
+- **Cassandra** Used for migrating a Cassandra database to Cosmos DB. Cassandra databases are column databases.
+- **Azure Table** Used for migrating data stored in Azure Table Storage to Cosmos DB. This creates a key-value database.
+- **Gremlin** Used for migrating Gremlin databases to Cosmos DB. Gremlin databases are graph databases.
+
+Microsoft calls these APIs because they are just that: APIs. They are application programming interfaces that allow developers who are already using an existing NoSQL database technology to migrate to Cosmos DB without having to change their code.
+
+Another huge advantage to Cosmos DB is a feature known as turnkey global distribution. This feature takes advantage of the horizontal scalability of NoSQL databases and allows you to replicate your data globally with a few clicks.
+
+## Azure SQL Database
+
+<img src="https://e7.pngegg.com/pngimages/170/924/png-clipart-microsoft-sql-server-microsoft-azure-sql-database-microsoft-text-logo-thumbnail.png" alt="Azure SQL Database" width="50">
+
+Azure SQL Database is a PaaS offering for the SQL Server database. Azure offers three different deployment options for Azure SQL database:
+
+### Single Database
+
+A single database represents simply a database that is running on a sql server. Azure manages the database server, but the customer needs to manage the database. Azure provides two different purchase models for single databases: Database Transaction Unit (DTU) and virtual core (vCore).
+
+DTU represents a collection of CPU, memory, and data reads and writes that come in three tiers: Basic, Standard, and Premium.
+
+vCore represents a more granular configuration, being able to choose the exact hardware you need.
+
+|      DTU    Model                                                                                                                   |      vCore    Model                                                                                                                                            |   |
+|-------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|---|
+|     Good choice for users who don’t   need a high degree of flexibility with configuration and who want fixed   pricing.            |     Good choice if you need a high   level of visibility and control of individual resources (such as memory,   storage, and CPU power) your database uses.    |   |
+|     Pre-configured limits for   transactions against the database, and pre-configured storage, CPU, and   memory configurations.    |     Flexibility in CPU power, memory,   and storage, with storage charged on a usage basis.                                                                    |   |
+|     Basic and Standard offerings,   along with a Premium tier for production databases with a large number of   transactions.       |     General Purpose and Business   Critical offerings to provide lower costs when desired and high-performance   and availability when required.               |   |
+|     Ability to scale to a higher tier   when needed.                                                                                |     Ability and flexibility to scale   CPU, memory, and storage as needed.                                                                                     |   |
+|     Backup storage and long-term   retention of data provided for an additional charge.                                             |     Backup storage and long-term   retention of data provided for an additional charge.                                                                        |   |
+
+### Elastic pool
+
+This model consists of more than one databases managed by the same SQL server. This offering is more geared towards SaaS applications, where each user could have its own database, and moving databases in and out of an elastic pool is easily done.
+
+In this case, you are charged for the resources used by the entire pool, not by single databases.
+
+### Managed instance
+
+This model is designed for customers that want to migrated from on-premises or another non-azure environment to Azure.
+
+Azure developed a tool called Azure Database Migration Service (DMS) to make it easier for customers to move on-premises databases to a managed instance.
