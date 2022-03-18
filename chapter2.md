@@ -56,7 +56,7 @@ The IP address that the VNet creates are all private IP addresses. If you want t
 
 VNet also allow for a Network Security Group to be assigned. That resource enforces rules about what kind of traffic is allowed to the VNet.
 
-<img src="https://wedoazure.files.wordpress.com/2019/08/image-27.png" alt="Network Security Group" width="50">
+<img src="https://wedoazure.files.wordpress.com/2019/08/image-27.png" alt="Network Security Group" width="80">
 
 ## Azure VPN Gateway
 
@@ -67,6 +67,38 @@ A VPN Gateway is used in cases where two or more VNets need to communicate, or i
 Azure VPN Gateway uses VPN connections to enable secure connectivity between Azure VNets and other networks. It uses Internet protocol security (IPSec) and the Internet key exchange (IKE) protocols.
 
 The VPN Gateway is running on top of two or more VMs that are created inside a subnet. They are created explicitly for the VPN Gateway and you cannot remote into them or change their configurations.
+
+### Gateway type - VPN
+
+Creating a VPN gateway resource can take up to 45 minute before it is ready for use. There are three connection types supported by a VPN gateway: VNet-to-VNet, site-to-site, and point-to-site.
+
+#### VNet-to-VNet
+
+Each VNet needs to have a VPN Gateway configured. The VNets do not have to be in the same region, or even in the same Azure subscription. Communication between VNets is done using the Azure backbone infrastructure, not over the internet.
+
+VPN Gateways come with pricing tiers, thus based on your tier you could experience bandwidth restrictions. VNet peering comes with no such bandwidth restrictions.
+
+#### Site-to-site
+
+Enables connection from a VNet to an on-premises network using encrypted VPN connection. You must configure a VPN device on your on-premises network, which must have a public-facing IP address. The network traffic will travel over encrypted VPN connection.
+
+These types of connections can authenticate by using Azure certificate authentication, Remote Authentication Dial-In User Service (RADIUS) authentication, Azure Active Directory, or OpenVPN.
+
+#### Point-to-site
+
+This type of connection allows you to connect your VNet to a single device. This device can be a computer, a mobile device, a tablet or a smartphone.
+
+### Gateway type - ExpressRoute
+
+The VPN gateway type has some limitations, such as a maximum of 1.25 Gbps in network speed. Moreover, the traffic is sent over the public Internet.
+
+The ExpressRoute type can offer up to 10 Gbps over dedicated fiber-optic connections. The connection is made from your on-premises network to a Microsoft Enterprise Edge router (MSEE), and the MSEE router then connects you to Azure. The MSEE router sits on the edge of Microsoft's network, and in most cases, your connection will also be from a router in your on-premises network that is on the edge of your network.
+
+Because data in ExpressRoute doesn't traverse the public Internet, bandwidth is much more reliable. However, the ExpressRoute configuration requires that you trust your service provider because the data flows through the circuit. There is an offering called ExpressRoute Direct which provides much higher bandwidth, and where the service provider is removed from the picture.
+
+### Virtual network peering
+
+Allows you to connect VNets. The traffic travels over Azure's private backbone infrastructure, and not over the Internet. However, the traffic is not encrypted. VNet peering allows you to connect VNets in the same region, or in different regions (global virtual network peering). There is one limitation with global peering: if there are resources behind a Azure Load Balancer running in the Basic Tier, you won't be able to connect to those resources using the public IP address of the load balancer. If that's a requirement, you need to upgrade the load balancer to a Standard tier.
 
 ## Azure Storage Account
 
@@ -101,6 +133,24 @@ This type of access is recommended for data that is not accessed often but inten
 #### Archive
 
 This type of access is recommended for long-term data storage. If you delete data sooner than 180 days that it got uploaded, you will be charged with a deletion fee. This type of data is not designed for quick and frequent access. The price of storage is the lowest, but the price of access is the highest. The Hot and Cool tiers guarantee access to the first byte of data within milliseconds, whereas with the archive tier that guarantee is within 15 hours.
+
+## Azure Disk Storage
+
+<img src="https://azure.microsoft.com/svghandler/managed-disks/?width=600&height=315" alt="Disk Storage" width="50">
+
+Azure Disk Storage is used by Azure VMs, by storing the VM OS data and application data.
+
+Azure disks are available as both HDDs and SSDs. HDDs are cheaper and designed for noncritical data, whereas SSD are designed for light use (Standard tier) and heavy use (Premium tier).
+
+There are two types of disk storage:
+
+- unmanaged
+
+You can use Azure Storage account to store the .vhd files in page blobs. This is troublesome as you need to manage the Azure Storage Account resource.
+
+- managed
+
+Azure creates a separate resource and handles everything behind the scenes: the storage account, and storage limitations. All you need to worry about is your disk, Azure manages everything else.
 
 ## Azure Cosmos DB
 
@@ -160,3 +210,21 @@ In this case, you are charged for the resources used by the entire pool, not by 
 This model is designed for customers that want to migrated from on-premises or another non-azure environment to Azure.
 
 Azure developed a tool called Azure Database Migration Service (DMS) to make it easier for customers to move on-premises databases to a managed instance.
+
+## Azure Database for MySQL
+
+<img src="https://daporo.gallerycdn.vsassets.io/extensions/daporo/mysql-toolkit-win/0.0.2/1517180511799/Microsoft.VisualStudio.Services.Icons.Default" alt="Azure MySQL" width="50">
+
+Azure Database for MySQL is a relational open-source database system. Since it is based on the MySQL Community Edition, you can easily move on-premises MySQL databases to the Azure cloud.
+
+It offers several pricing plans based on your needs:
+
+- **Basic**: light usage
+- **General-Purpose**: business use
+- **Memory Optimized**: high-performance requirements
+
+## Azure Database for PostgreSQL
+
+<img src="https://gravitydata.co/wp-content/uploads/2021/06/Azure-DB-for-Postgres.png" alt="Azure PostgreSQL" width="50">
+
+Azure Database for PostgreSQL is a relational open-source database system. The pricing model is similar to Azure database for MySQL. The Azure cloud manages the server, database security, performance, and other administrative tasks.
